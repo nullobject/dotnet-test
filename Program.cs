@@ -14,15 +14,13 @@ public class MessageWriter : IMessageWriter
     }
 }
 
-public class Worker : BackgroundService
+public class Worker(IMessageWriter messageWriter) : BackgroundService
 {
-    private readonly MessageWriter _messageWriter = new();
-
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            _messageWriter.Write($"Worker running at: {DateTimeOffset.Now}");
+            messageWriter.Write($"Worker running at: {DateTimeOffset.Now}");
             await Task.Delay(1_000, stoppingToken);
         }
     }
