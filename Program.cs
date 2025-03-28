@@ -16,7 +16,7 @@ public sealed class Worker(ILogger<Worker> logger) : BackgroundService
 
 class App
 {
-    static void Main(string[]? args)
+    static int Main(string[] args)
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
@@ -25,5 +25,7 @@ class App
         using IHost host = builder.Build();
 
         host.Run();
+
+        return 0;
     }
 }
